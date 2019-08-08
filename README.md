@@ -1,6 +1,7 @@
 # pwn-cheat-sheet
 
 ### Format string - write value into address
+###### taken from https://github.com/sefi-roee/CTFs-Writeups/blob/master/picoCTF-2018/Binary/12-echo_back-500/solution.md
 ```python
 def write_memory(address, value):
   v1 = (value & 0x0000FFFF) - 8
