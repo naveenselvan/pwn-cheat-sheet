@@ -19,3 +19,9 @@ def write_memory(address, value):
 
   return ret
   ```
+
+### Unpack (str to int)
+###### taken from http://docs.pwntools.com/en/stable/util/packing.html
+```
+u = make_unpacker(32, endian='little', sign='unsigned')
+```
