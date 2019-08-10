@@ -19,9 +19,28 @@ def write_memory(address, value):
 
   return ret
   ```
+### Pack (int to str)
+###### taken from http://docs.pwntools.com/en/stable/util/packing.html
+```
+p32(0x12345678)         # 4 byte value
+p64(0x1234567812345678) # 8 byte value
+```
 
 ### Unpack (str to int)
 ###### taken from http://docs.pwntools.com/en/stable/util/packing.html
 ```
-u = make_unpacker(32, endian='little', sign='unsigned')
+u = make_unpacker(32, endian='little', sign='unsigned') # 4 byte value
+u = make_unpacker(64, endian='little', sign='unsigned') # 8 byte value
 ```
+
+### ROPgadget
+###### taken from https://github.com/JonathanSalwan/ROPgadget
+This tool lets you search your gadgets on your binaries to facilitate your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
+
+### one_gadget
+###### taken from https://github.com/david942j/one_gadget
+Tool for finding one gadget RCE in libc
+
+### libc-database
+###### taken from https://github.com/niklasb/libc-database
+Database of libc functions offsets
