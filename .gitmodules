@@ -1,0 +1,6 @@
+[submodule "ROPgadget"]
+	path = ROPgadget
+	url = git@github.com:JonathanSalwan/ROPgadget.git
+[submodule "one_gadget"]
+	path = one_gadget
+	url = git@github.com:david942j/one_gadget.git
