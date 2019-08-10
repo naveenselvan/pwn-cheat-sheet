@@ -44,3 +44,9 @@ Tool for finding one gadget RCE in libc
 ### libc-database
 ###### taken from https://github.com/niklasb/libc-database
 Database of libc functions offsets
+
+### Safe heap managements
+* After free(X) set X value to 0
+* After malloc(size) reset the memory region you got, or initialize the memory with default safe values
+
+**Without these operations the code may be vulnarble !! (UAF, Double Free, etc..)**
