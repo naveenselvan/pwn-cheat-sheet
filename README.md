@@ -35,14 +35,17 @@ u = make_unpacker(64, endian='little', sign='unsigned') # 8 byte value
 
 ### ROPgadget
 ###### taken from https://github.com/JonathanSalwan/ROPgadget
+###### clone date:  13.8.2019
 This tool lets you search your gadgets on your binaries to facilitate your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
 
 ### one_gadget
+###### clone date:  13.8.2019
 ###### taken from https://github.com/david942j/one_gadget
 Tool for finding one gadget RCE in libc
 
 ### libc-database
 ###### taken from https://github.com/niklasb/libc-database
+###### clone date:  13.8.2019
 Database of libc functions offsets
 
 ### Safe heap managements
