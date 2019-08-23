@@ -137,3 +137,29 @@ This presents a summary of the security checks introduced in glibc's implementat
 | \_int\_free | Check whether next chunk's (by memory) previous in use bit is marked | double free or corruption (!prev) |
 | \_int\_free | Check whether size of next chunk is within the minimum and maximum size (`av->system_mem`) | free(): invalid next size (normal) |
 | \_int\_free | While inserting the coalesced chunk into unsorted bin, check whether `unsorted_chunks(av)->fd->bk == unsorted_chunks(av)` | free(): corrupted unsorted chunks |
+
+
+# Kernel Exploiation
+* Swich back to user space from kernel space:
+  ```
+  swapgs
+  iretq
+  ```
+  - swapgs - changes the GS register
+  - iretq  - pop IP,CS,EFLAGS,SP,SS
+
+* `/proc/kallsyms` - In old kernel versions the file shows all addresses and symbols in Linux kernel. (In modern kernels `/proc/sys/kernel/kptr_restrict` will be set to 1 to prevent leak)
+
+## ret2user
+**When SMEP is disabled**, kernel space can execute userspace code. We can mmap a region in userspace for commit_creds(prepare_kernel_cred(0)) shellcode. And then start executing the region.
+
+## SMEP/SMAP Bypass
+When SMEP is enabled, the 20th bit of CR4 register will be 1. (And the 21th bit of CR4 will be 1 if SMAP is enabled). We can use ROP to disable it (SMEP/SMAP is turned off by clearing the 20th bit of CR4):
+```
+POP RDI ; RET         // Place 00000000000006f0 in RDI 
+MOV CR4 , RDI ; RET  // SMEP disbled     # 64- under-bit most is pop it 0x6f0 on the line
+```
+To do kROP, we need to search gadgets in vmlinux, which can be extracted by extract-vmlinux
+
+## (code) privilege escalation:
+`commit_creds(prepare_kernel_cred(0));` - Change the `current->cred->euid` to 0, the current process is marked to have root privilege
