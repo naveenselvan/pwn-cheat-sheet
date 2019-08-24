@@ -140,6 +140,15 @@ This presents a summary of the security checks introduced in glibc's implementat
 
 
 # Kernel Exploiation
+
+### (tool) extract-vmlinux
+###### taken from https://github.com/torvalds/linux/blob/master/scripts/extract-vmlinux
+The bzImage is compressed, we need to use extract-vmlinux script to extract the kernel
+```bash
+./extract-linux bzImage > kernel
+```
+
+## tips
 * Swich back to user space from kernel space:
   ```
   swapgs
@@ -148,7 +157,7 @@ This presents a summary of the security checks introduced in glibc's implementat
   - swapgs - changes the GS register
   - iretq  - pop IP,CS,EFLAGS,SP,SS
 
-* `/proc/kallsyms` - In old kernel versions the file shows all addresses and symbols in Linux kernel. (In modern kernels `/proc/sys/kernel/kptr_restrict` will be set to 1 to prevent leak)
+* `/proc/kallsyms` - In old kernel versions the file shows all addresses and symbols in Linux kernel **(to the *root* user)**. (In modern kernels `/proc/sys/kernel/kptr_restrict` will be set to 1 to prevent leak)
 
 ## ret2user
 **When SMEP is disabled**, kernel space can execute userspace code. We can mmap a region in userspace for commit_creds(prepare_kernel_cred(0)) shellcode. And then start executing the region.
