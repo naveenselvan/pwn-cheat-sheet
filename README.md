@@ -159,6 +159,8 @@ The bzImage is compressed, we need to use extract-vmlinux script to extract the 
 
 * `/proc/kallsyms` - In old kernel versions the file shows all addresses and symbols in Linux kernel **(to the *root* user)**. (In modern kernels `/proc/sys/kernel/kptr_restrict` will be set to 1 to prevent leak)
 
+* `vm.mmap_min_addr` specifies the minimum virtual address that a process is allowed to mmap (vm.mmap_min_addr = 65536). Prevents from NULL Pointer dereference attack.
+
 ## ret2user
 **When SMEP is disabled**, kernel space can execute userspace code. We can mmap a region in userspace for commit_creds(prepare_kernel_cred(0)) shellcode. And then start executing the region.
 
