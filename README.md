@@ -149,13 +149,18 @@ The bzImage is compressed, we need to use extract-vmlinux script to extract the 
 ```
 
 ## tips
-* Swich back to user space from kernel space:
+* Swich back to user space from kernel space (64 bit):
   ```
   swapgs
   iretq
   ```
   - swapgs - changes the GS register
   - iretq  - pop IP,CS,EFLAGS,SP,SS
+  
+  (32 bit):
+  ```
+  iret
+  ```
 
 * `/proc/kallsyms` - In old kernel versions the file shows all addresses and symbols in Linux kernel **(to the *root* user)**. (In modern kernels `/proc/sys/kernel/kptr_restrict` will be set to 1 to prevent leak)
 
